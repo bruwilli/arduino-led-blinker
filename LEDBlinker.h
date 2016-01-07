@@ -69,8 +69,8 @@ public:
   // Restarts at first sequence (if one was running) on new pin
   void setPin(uint8_t const pin);
   
-  // This is the workhorse function.  It starts a sequence of LED blinking, followed
-  // by a pause (with the LED off), and repeats the sequence a specified number of times,
+  // This starts a sequence of LED blinking, followed by a pause
+  // (with the LED off), and repeats the sequence a specified number of times,
   // then calls a callback function (if provided) when completely done.  The maximum
   // time for a single sequence (blinks plus pause) is 65,535 milliseconds.  At the end
   // of the last sequence, the LED will be left in it's final state (off, unless the 
@@ -106,18 +106,14 @@ public:
     blink(0, offDuration, 1, 0, 1, callbackFunction);        
   }
   
-  // Turn on, leave on forever
+  // Turn on, leave on indefinitely
   void on() { blink(1, 0, 1, 0, 0, NULL); }
 
-  // Turn off, leave off forever
+  // Turn off, leave off indefinitely
   void off() { blink(0, 1, 1, 0, 0, NULL); }
   
-  // Blink for one sequence, with a fixed number of blinks in the sequence, using default blink/pause durations
-  void blink(uint8_t const numBlinks, void (*callbackFunction)()) {
-    blink(250, 250, numBlinks, 750, 1, callbackFunction); 
-  }
-
-  // This must be called in your loop, and your loop should be non-blocking (no delays)
+  // This is the workhorse function.  It must be called in your loop, 
+  // and your loop should be non-blocking (no delays)
   void update();
 };
 

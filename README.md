@@ -2,7 +2,7 @@
 Arduino library allowing non-blocking LED blinking patterns in repeating sequences
 
 
-## Example setup/running code:
+## Example setup/running code
 ```
 LEDBlinker led(13);  // Use pin 13
  void setup() {
@@ -13,12 +13,12 @@ LEDBlinker led(13);  // Use pin 13
  }
 ```
 
-## Example control code:
-### Turn LED on indefinitely:
+## Example control code
+### Turn LED on indefinitely
 ```
 led.on();
 ```
-### Turn LED off indefinitely:
+### Turn LED off indefinitely
 ```
 led.off();
 ```

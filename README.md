@@ -1,5 +1,5 @@
 # arduino-led-blinker
-Arduino library allowing non-blocking LED blinking patterns in repeating sequences
+Arduino library allowing non-blocking LED blinking patterns in repeating sequences (not yet tested, or even compiled)
 
 
 ## Example setup/running code

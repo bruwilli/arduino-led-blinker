@@ -7,7 +7,7 @@
 
 #include "LEDBlinker.h"
 
-void LEDBlinker::setPin(uint8_t const pin)
+void LEDBlinker::setPin(byte const pin)
 {
    mPin = pin; 
    blink(mBlinkOnDuration, 
@@ -28,8 +28,8 @@ LEDBlinker::update() {
   }
   
   unsigned long elapsedTime = curTime - mStartTime;
-  uint16_t blinkDuration = mBlinkOnDuration + mBlinkOffDuration;
-  uint16_t sequenceDuration = blinkDuration + mPauseDuration - mBlinkOffDuration;
+  unsigned int blinkDuration = mBlinkOnDuration + mBlinkOffDuration;
+  unsigned int sequenceDuration = blinkDuration + mPauseDuration - mBlinkOffDuration;
   if (mNumSequences != 0 && elapsedTime / sequenceDuration >= mNumSequences) {
     mNumBlinks = 0;
     if (mCallbackFunction) {
@@ -39,8 +39,8 @@ LEDBlinker::update() {
   }
   
   // Figure out where we are within a sequence
-  uint16_t blinkingDuration = blinkDuration * mNumBlinks;
-  uint16_t timeInSequence = elapsedTime % sequenceDuration;
+  unsigned int blinkingDuration = blinkDuration * mNumBlinks;
+  unsigned int timeInSequence = elapsedTime % sequenceDuration;
   if (timeInSequence < blinkingDuration && timeInSequence % blinkDuration < mBlinkOnDuration) {
     digitalWrite(mPin, HIGH);    
   } else {
@@ -48,11 +48,11 @@ LEDBlinker::update() {
   }
 }
 
-void LEDBlinker::blink(uint16_t const blinkOnDuration,
-                       uint16_t const blinkOffDuration,
-                       uint8_t const numBlinks,
-                       uint16_t const pauseDuration,
-                       uint16_t const numSequences,
+void LEDBlinker::blink(unsigned int const blinkOnDuration,
+                       unsigned int const blinkOffDuration,
+                       byte const numBlinks,
+                       unsigned int const pauseDuration,
+                       unsigned int const numSequences,
                        void (*callbackFunction)()) {
   mBlinkOnDuration = blinkOnDuration ? MAX(LED_BLINKER_MIN_INTERVAL, blinkOnDuration) : 0;
   mBlinkOffDuration = blinkOffDuration ? MAX(LED_BLINKER_MIN_INTERVAL, blinkOffDuration) : 0;

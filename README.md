@@ -10,6 +10,7 @@ LEDBlinker led(13);  // Use pin 13
  }
  void loop() { 
    led.update(); // Must be called in loop.  Do not block (use delays) in loop
+   // Do other stuff, including calling LED control functions to control the LED
  }
 ```
 

@@ -66,4 +66,5 @@ void displayDigit() {
     }
   }
 }
+displayDigit();
 ```

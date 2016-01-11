@@ -14,9 +14,6 @@
 
 // Example setup/running code:
 //    LEDBlinker led(13);  // Use LED on pin 13
-//    void setup() {
-//      pinMode(13, OUTPUT);  // Must setup pin as output
-//    }
 //    void loop() { 
 //      led.update(); // Must be called in loop.  Do not block (use delays) in loop
 //      // Do other stuff, call LED control code below to control LED

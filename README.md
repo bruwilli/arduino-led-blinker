@@ -5,9 +5,6 @@ Arduino library allowing non-blocking LED blinking patterns in repeating sequenc
 ## Example setup/running code
 ```
 LEDBlinker led(13);  // Use pin 13
-void setup() {
-  pinMode(13, OUTPUT);  // Must setup pin as output
-}
 void loop() { 
   led.update(); // Must be called in loop.  Do not block (use delays) in loop
   // Do other stuff, including calling LED control functions to control the LED

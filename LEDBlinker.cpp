@@ -11,6 +11,7 @@ void LEDBlinker::setPin(byte const pin)
 {
    mPin = pin; 
    pinMode(pin, OUTPUT);
+   mNumBlinks = 0;
 }
 
 LEDBlinker::update() {

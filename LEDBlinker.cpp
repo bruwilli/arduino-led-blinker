@@ -10,11 +10,7 @@
 void LEDBlinker::setPin(byte const pin)
 {
    mPin = pin; 
-   blink(mBlinkOnDuration, 
-         mBlinkOffDuration, 
-         mNumBlinks,
-         mPauseDuration,
-         mNumSequences); 
+   pinMode(pin, OUTPUT);
 }
 
 LEDBlinker::update() {

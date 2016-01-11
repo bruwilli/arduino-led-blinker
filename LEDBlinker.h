@@ -64,10 +64,12 @@ protected:
   LEDBlinker(); // Hide this (force pin to be set)
   
 public:
-  // Create a new LED Fader for a pin
-  LEDBlinker(byte const pin): mPin(pin), mNumBlinks(0){};
+  // Create a new LED Fader for a pin.  This automatically sets the pin mode
+  LEDBlinker(byte const pin): mPin(pin), mNumBlinks(0){
+    pinMode(pin, OUTPUT);
+  };
   
-  // Restarts at first sequence (if one was running) on new pin
+  // Use new pin.  This automatically sets the pin mode
   void setPin(byte const pin);
   
   // This starts a sequence of LED blinking, followed by a pause

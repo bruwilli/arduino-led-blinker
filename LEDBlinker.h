@@ -8,8 +8,8 @@
 #ifndef LEDBlinker_H_
 #define LEDBlinker_H_
 #include "Arduino.h"
-// The minimum time (milliseconds) the program will wait between LED adjustments
-// adjust this to modify performance.
+ // The minimum time (milliseconds) the program will wait between LED adjustments
+ // adjust this to modify performance.
 #define LED_BLINKER_MIN_INTERVAL 20
 
 // Example setup/running code:
@@ -69,74 +69,80 @@
 
 class LEDBlinker {
 private:
-  byte mPin;
-  byte mNumBlinks;
-  unsigned int mBlinkOnDuration;
-  unsigned int mBlinkOffDuration;
-  unsigned int mPauseDuration;
-  unsigned int mNumSequences;  // 0 to run forever
-  unsigned long mStartTime;
-  unsigned long mLastRunTime;
-  void (*mCallbackFunction)();
+	byte mPin;
+	byte mNumBlinks;
+	unsigned int mBlinkOnDuration;
+	unsigned int mBlinkOffDuration;
+	unsigned int mPauseDuration;
+	unsigned int mNumSequences;  // 0 to run forever
+	unsigned long mStartTime;
+	unsigned long mLastRunTime;
+	void(*mCallbackFunction)();
+	bool activeLow;
 
 protected:
-  LEDBlinker(); // Hide this (force pin to be set)
+	LEDBlinker(); // Hide this (force pin to be set)
 
 public:
-  // Create a new LED Fader for a pin.  This automatically sets the pin mode
-  LEDBlinker(byte const pin): mPin(pin), mStartTime(0){
-    pinMode(pin, OUTPUT);
-  };
+	// Create a new LED Fader for a pin.  This automatically sets the pin mode
+	LEDBlinker(byte const pin) : mPin(pin), mStartTime(0) {
+		pinMode(pin, OUTPUT);
+		activeLow = false;
+	};
+	LEDBlinker(byte const pin, bool const activeLow) : mPin(pin), mStartTime(0) {
+		pinMode(pin, OUTPUT);
+		this->activeLow = activeLow;
+	};
 
-  // Use new pin.  This automatically sets the pin mode
-  void setPin(byte const pin);
+	// Use new pin.  This automatically sets the pin mode
+	void setPin(byte const pin);
 
-  // This starts a sequence of LED blinking, followed by a pause
-  // (with the LED off), and repeats the sequence a specified number of times,
-  // then calls a callback function (if provided) when completely done.  The maximum
-  // time for a single sequence (blinks plus pause) is 65,535 milliseconds.  At the end
-  // of the last sequence, the LED will be left in it's final state (off, unless the
-  // pause duration is 0)
-  // Arguments:
-  //   blinkOnDuration - time (in ms) that LED will blink on
-  //   blinkOffDuration - time (in ms) that LED will blink off (between "on"
-  //       blinks, not before pause)
-  //   numBlinks - number of times the LED should blink on.  The LED will
-  //       blink off numBlinks - 1 times.
-  //   pauseDuration - duration to leave the LED off after the last blink on until
-  //       the end of the sequence
-  //   numSequences - number of times the blink/pause sequence should repeat.  You
-  //      can specify 0 to indicate infinite sequences.
-  //   callbackFunction - a function you want to have run when all sequences have
-  //      completed.  Ignored if numSequences is 0 (infinite sequences).
-  void blink(unsigned int const blinkOnDuration,
-             unsigned int const blinkOffDuration,
-             byte const numBlinks,
-             unsigned int const pauseDuration,
-             unsigned int const numSequences,
-             void (*callbackFunction)());
+	// This starts a sequence of LED blinking, followed by a pause
+	// (with the LED off), and repeats the sequence a specified number of times,
+	// then calls a callback function (if provided) when completely done.  The maximum
+	// time for a single sequence (blinks plus pause) is 65,535 milliseconds.  At the end
+	// of the last sequence, the LED will be left in it's final state (off, unless the
+	// pause duration is 0)
+	// Arguments:
+	//   blinkOnDuration - time (in ms) that LED will blink on
+	//   blinkOffDuration - time (in ms) that LED will blink off (between "on"
+	//       blinks, not before pause)
+	//   numBlinks - number of times the LED should blink on.  The LED will
+	//       blink off numBlinks - 1 times.
+	//   pauseDuration - duration to leave the LED off after the last blink on until
+	//       the end of the sequence
+	//   numSequences - number of times the blink/pause sequence should repeat.  You
+	//      can specify 0 to indicate infinite sequences.
+	//   callbackFunction - a function you want to have run when all sequences have
+	//      completed.  Ignored if numSequences is 0 (infinite sequences).
+	void blink(unsigned int const blinkOnDuration,
+		unsigned int const blinkOffDuration,
+		byte const numBlinks,
+		unsigned int const pauseDuration,
+		unsigned int const numSequences,
+		void(*callbackFunction)());
 
-  // Turn on, leave on for duration, then call callback
-  void onForDuration(unsigned int const onDuration,
-                     void (*callbackFunction)()) {
-    blink(onDuration, 0, 1, 0, 1, callbackFunction);
-  }
+	// Turn on, leave on for duration, then call callback
+	void onForDuration(unsigned int const onDuration,
+		void(*callbackFunction)()) {
+		blink(onDuration, 0, 1, 0, 1, callbackFunction);
+	}
 
-  // Turn off, leave off for duration, then call callback
-  void offForDuration(unsigned int const offDuration,
-                      void (*callbackFunction)()) {
-    blink(0, 0, 0, offDuration, 1, callbackFunction);
-  }
+	// Turn off, leave off for duration, then call callback
+	void offForDuration(unsigned int const offDuration,
+		void(*callbackFunction)()) {
+		blink(0, 0, 0, offDuration, 1, callbackFunction);
+	}
 
-  // Turn on, leave on indefinitely
-  void on() { blink(1, 0, 1, 0, 0, NULL); }
+	// Turn on, leave on indefinitely
+	void on() { blink(1, 0, 1, 0, 0, NULL); }
 
-  // Turn off, leave off indefinitely
-  void off() { blink(0, 0, 0, 1, 0, NULL); }
+	// Turn off, leave off indefinitely
+	void off() { blink(0, 0, 0, 1, 0, NULL); }
 
-  // This is the workhorse function.  It must be called in your loop,
-  // and your loop should be non-blocking (no delays)
-  void update();
+	// This is the workhorse function.  It must be called in your loop,
+	// and your loop should be non-blocking (no delays)
+	void update();
 };
 
 #endif /* LEDBlinker_H_ */

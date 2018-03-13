@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+LEDBlinker		KEYWORD2
+setPin	KEYWORD2
+blink	KEYWORD2
+on	KEYWORD2
+off	KEYWORD2
+onForDuration	KEYWORD2
+offForDuration	KEYWORD2
+update			KEYWORD2
+#######################################
+# Instances (KEYWORD2)
+#######################################
+LEDBlinker	KEYWORD2
+#######################################
+# Constants (LITERAL1)
+#######################################

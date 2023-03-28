@@ -39,9 +39,9 @@ void LEDBlinker::update() {
   unsigned int blinkingDuration = blinkDuration * mNumBlinks;
   unsigned int timeInSequence = elapsedTime % sequenceDuration;
   if (timeInSequence < blinkingDuration && timeInSequence % blinkDuration < mBlinkOnDuration) {
-    digitalWrite(mPin, HIGH);
+    digitalWrite(mPin, activeLow ? LOW: HIGH);
   } else {
-    digitalWrite(mPin, LOW);
+    digitalWrite(mPin, activeLow? HIGH: LOW);
   }
 }
 
